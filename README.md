@@ -14,7 +14,7 @@ gem 'handy_apn'
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
 Or install it yourself as:
 
@@ -22,7 +22,8 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+	$ require 'handy_apn'
+	$ rake --tasks
 
 ## Development
 
