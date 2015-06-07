@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Provides a handy tool to check your certificate and send apple push notification instantly.}
   spec.description   = %q{Once the Apple push notification certificates are created, use the rake task to send push notification to the device instantly.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/sushmasatish/handy_apn"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
