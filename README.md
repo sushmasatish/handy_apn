@@ -24,7 +24,14 @@ Or install it yourself as:
 
 	$ require 'handy_apn'
 	$ rake --tasks
-	$ rake apn:send_push_notification[apn_cer_file_full_path,apn_pass_phrase,device_token,is_dev_or_prod]
+	$ rake apn:send_push_notification[full_file_path_to_dot_pem,pass_phrase_for_certificate,device_token,is_dev_or_prod]
+
+Note:
+full_file_path_to_dot_cer - absolute location of the file along with file name and should be for .pem
+device_token - should be separated by space after 8 characters as shown in example below.
+is_dev_or_prod - false - connects to APN-Dev service - gateway.sandbox.push.apple.com
+
+	$ rake apn:send_push_notification["/Users/blah/apn_certificates/aps_development.pem","blah","eb8328c8 3f42a4dd e7eb8e96 5535b0c7 653032eb 070e54d9 c55133a6 da32c94f",false]
 
 ## Development
 
@@ -34,5 +41,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/handy_apn.
+Bug reports and pull requests are welcome on GitHub at https://github.com/sushmasatish/handy_apn.
 
