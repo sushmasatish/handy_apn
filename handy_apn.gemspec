@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Once the Apple push notification certificates are created, use the rake task to send push notification to the device instantly.}
   spec.homepage      = "https://github.com/sushmasatish/handy_apn"
 
-  s.rubyforge_project = "handy_apn"
+  spec.rubyforge_project = "handy_apn"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"

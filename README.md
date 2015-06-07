@@ -24,6 +24,7 @@ Or install it yourself as:
 
 	$ require 'handy_apn'
 	$ rake --tasks
+	$ rake apn:send_push_notification[apn_cer_file_full_path,apn_pass_phrase,device_token,is_dev_or_prod]
 
 ## Development
 
