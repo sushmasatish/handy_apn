@@ -1,13 +1,5 @@
 require "handy_apn"
 
-configatron.apn.port = 2195
-configatron.apn.dev.host = 'gateway.sandbox.push.apple.com'
-configatron.apn.prod.host = 'gateway.push.apple.com'
-
-configatron.apn.feedback.port = 2196
-configatron.apn.dev.feedback.host = 'feedback.sandbox.push.apple.com'
-configatron.apn.prod.feedback.host = 'gateway.push.apple.com'
-
 namespace :apn do
 
 	desc "send_message - Params: apn_pem_file_path, apn_pass_phrase, device_token, should_send_message_to_apn_prod, message_text"

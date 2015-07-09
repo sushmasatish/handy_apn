@@ -21,7 +21,7 @@ command :push do |c|
   c.summary = 'Sends an Apple Push Notification to specified devices'
   c.description = ''
 
-  c.example 'description', 'handy_apn push <token> -m "Hello, World" -b 57 -s sosumi.aiff'
+  c.example 'description', 'handy_apn push <token> -m "Hello, World"'
   c.option '-m', '--alert ALERT', 'Body of the alert to send in the push notification'
   c.option '-e', '--environment ENV', [:production, :development], 'Environment to send push notification (production or development (default))'
   c.option '-c', '--certificate CERTIFICATE', 'Path to certificate (.pem) file'
@@ -49,11 +49,13 @@ command :push do |c|
       say_error "Payload contents required" and abort if @alert.nil? or @alert == placeholder
     end
 
-    ApnSendHelper.new(@certificate, 
-			@passphrase,
-			token, 
-			@should_send_message_to_apn_prod, 
-			@alert).send_push_notification()
+    args.each do |token|
+	    ApnSendHelper.new(@certificate, 
+				@passphrase,
+				token, 
+				@should_send_message_to_apn_prod, 
+				@alert).send_push_notification()
+   	end
   end
 end
 
