@@ -1,7 +1,4 @@
-require "configatron"
-require "json"
-require "./lib/handy_apn/colored_logger.rb"
-require "./lib/handy_apn/apn_send_helper.rb"
+require "handy_apn"
 
 configatron.apn.port = 2195
 configatron.apn.dev.host = 'gateway.sandbox.push.apple.com'
@@ -13,26 +10,28 @@ configatron.apn.prod.feedback.host = 'gateway.push.apple.com'
 
 namespace :apn do
 
-	desc "send_push_notification - Params: apn_cer_file_full_path, apn_pass_phrase, device_token, is_dev_or_prod"
-	task :send_push_notification, [:apn_cer_file_full_path, :apn_pass_phrase, :device_token, :is_dev_or_prod] do |task, args|
-		ColoredLogger.info(task, "STARTED - Running send_push_notification Task.")
+	desc "send_message - Params: apn_pem_file_path, apn_pass_phrase, device_token, should_send_message_to_apn_prod, message_text"
+	task :send_message, [:apn_pem_file_path, :apn_pass_phrase, :device_token, :should_send_message_to_apn_prod, :message_text] do |task, args|
+		ColouredLogger::CLogger.info(task, "STARTED - Running send_message Task.")
 
         device_token = args[:device_token]
-        is_dev_or_prod = false # False means dev.
-        apn_cer_file_full_path = args[:apn_cer_file_full_path]
+        should_send_message_to_apn_prod = false # False means dev.
+        apn_pem_file_path = args[:apn_pem_file_path]
 		apn_pass_phrase = args[:apn_pass_phrase]
+		message_text = args[:message_text]
 		
-		unless args[:is_dev_or_prod].nil?
-			if args[:is_dev_or_prod].downcase == "true"
-        		is_dev_or_prod = true
+		unless args[:should_send_message_to_apn_prod].nil?
+			if args[:should_send_message_to_apn_prod].downcase == "true"
+        		should_send_message_to_apn_prod = true
 	        end
 		end
         
-		ApnSendHelper.new(apn_cer_file_full_path, 
+		ApnSendHelper.new(apn_pem_file_path, 
 			apn_pass_phrase,
 			device_token, 
-			is_dev_or_prod).send_push_notification()
+			should_send_message_to_apn_prod, 
+			message_text).send_push_notification()
 
-		ColoredLogger.info(task, "FINISHED - Running send_push_notification Task.")
+		ColouredLogger::CLogger.info(task, "FINISHED - Running send_message Task.")
 	end
 end
