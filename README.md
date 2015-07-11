@@ -21,11 +21,12 @@ Or install it yourself as:
 ### Command Line
   The handy_apn gem provides a command-line option (```handy_apn```) to test your certificates by sending message to the device.
   
+  To lists the commands available:
   ```sh
   $ handy_apn -h
   ```
-  lists the commands available.
   
+  To send message to a device:
   ```sh
   $ handy_apn push "f2ecca82 b48b7a38 5b838ece 3079ee6f 29f27163 d8407c1f 01f7298c 0a74bd7c" -m "Hello world" -e production -c aps_production.pem -p
   ```
@@ -34,6 +35,7 @@ Or install it yourself as:
 ### Rakefile
   The handy_apn gem also provides a rake task to test your certificates by sending a message to the device.
   
+  Create a Rakefile:
   ```sh
   $ vi Rakefile
   ```
@@ -42,12 +44,12 @@ Or install it yourself as:
   require "handy_apn/Rakefile"
   ```
   
-  Now
+  Now lists the rake tasks
   ```sh
   $ rake --tasks
   $ rake apn:send_message[apn_pem_file_path,apn_pass_phrase,device_token,should_send_message_to_apn_prod,message_text]
   ```
-Note:
+Params:
 
 * apn_pem_file_path - absolute location of the file along with file name
 * apn_pass_phrase - passphrase for your pem file
@@ -55,7 +57,7 @@ Note:
 * should_send_message_to_apn_prod - true would send to apple's production push notification service.
 * message_text - Message you want to send
 
-To test production certificate:
+Example to test development certificate:
 ```sh
 $ rake apn:send_message["/Users/blah/apn_certificates/aps_development.pem","blah","eb8328c8 3f42a4dd e7eb8e96 5535b0c7 653032eb 070e54d9 c55133a6 da32c94f",false,"Hello world"]
 ```
