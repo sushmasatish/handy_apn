@@ -28,9 +28,28 @@ Or install it yourself as:
   
   To send message to a device:
   ```sh
+  $ handy_apn -h push
+
+  push
+
+  Usage: handy_apn push TOKEN [...]
+
+  Examples:
+        
+    # description
+    handy_apn push <token> -m "Hello, World"
+        
+  Options:
+    -m, --alert ALERT    Body of the alert to send in the push notification 
+    -e, --environment ENV Environment to send push notification (production or development (default)) 
+    -c, --certificate CERTIFICATE Path to certificate (.pem) file 
+    -p, --[no]-passphrase Prompt for a certificate passphrase 
+  ```
+  
+  To send the message "Hello world" to the device using the production apple push notification service using the prodution pem file.
+  ```sh
   $ handy_apn push "f2ecca82 b48b7a38 5b838ece 3079ee6f 29f27163 d8407c1f 01f7298c 0a74bd7c" -m "Hello world" -e production -c aps_production.pem -p
   ```
-  sends the message "Hello world" to the device using the production apple push notification service using the prodution pem file.
 
 ### Rakefile
   The handy_apn gem also provides a rake task to test your certificates by sending a message to the device.
