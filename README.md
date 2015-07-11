@@ -28,9 +28,28 @@ Or install it yourself as:
   
   To send message to a device:
   ```sh
+  $ handy_apn -h push
+
+  push
+
+  Usage: handy_apn push TOKEN [...]
+
+  Examples:
+        
+    # description
+    handy_apn push <token> -m "Hello, World"
+        
+  Options:
+    -m, --alert ALERT    Body of the alert to send in the push notification 
+    -e, --environment ENV Environment to send push notification (production or development (default)) 
+    -c, --certificate CERTIFICATE Path to certificate (.pem) file 
+    -p, --[no]-passphrase Prompt for a certificate passphrase 
+  ```
+  
+  To send the message "Hello world" to the device using the production apple push notification service using the prodution pem file.
+  ```sh
   $ handy_apn push "f2ecca82 b48b7a38 5b838ece 3079ee6f 29f27163 d8407c1f 01f7298c 0a74bd7c" -m "Hello world" -e production -c aps_production.pem -p
   ```
-  sends the message "Hello world" to the device using the production apple push notification service using the prodution pem file.
 
 ### Rakefile
   The handy_apn gem also provides a rake task to test your certificates by sending a message to the device.
@@ -64,9 +83,21 @@ $ rake apn:send_message["/Users/blah/apn_certificates/aps_development.pem","blah
 
 ## How to create apple push notification certificate
 
- I have referred to instructions from raywenderlich.
+1. Open you Keychain and request for a CertificateSigningRequest(CSR): 
+![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/CSRRequest.png)
+2. Create your CSR and **save it disk**:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/CSRCreation.png)
+3. Open **apple developer portal**, open your app id and enable push notification:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/AppleDeveloper_EnablePushNotification.png)
+4. In apple developer portal, To create push notification developer certificate, Click Certificate, you will see this page, click Continue here:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/AppleInstructionsOnCreatingCSR.png)
+5. Now upload the CSR created in step 2:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/generating_certificate.png)
+6. Once generated, click on download and save the file. The saved file would be named: "aps_development.cer":![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/click_download.png)
+7. Open the downloaded aps_development.cer file by double clicking. This would add the .cer to keychain. Now Select the **private key** and the **certificate** and right click and select ```Export 2 items```:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/ExportingPrivateKeyAndAPNDevCerTogether.png)
+8. Selecting Export 2 items, will export it as .p12 file:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/ExportingPrivateKeyDevCerTogether.png)
+9. Now execute the following ```openssl``` command on the ```AppDemoPrivateKeyDevCerTogether.p12```:
 
-http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1
+```sh
+$ openssl pkcs12 -in AppDemoPrivateKeyDevCerTogether.p12 -out push_notification_demo_apn_dev.pem -nodes -clcerts
+```
+
 
 ## Development
 
