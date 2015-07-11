@@ -17,7 +17,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "coloured_logger"
   spec.add_dependency "commander", "~> 4.1"
   spec.add_dependency "json"
-  spec.add_dependency "houston"
 
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
