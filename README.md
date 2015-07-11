@@ -64,9 +64,21 @@ $ rake apn:send_message["/Users/blah/apn_certificates/aps_development.pem","blah
 
 ## How to create apple push notification certificate
 
- I have referred to instructions from raywenderlich.
+1. Open you Keychain and request for a CertificateSigningRequest(CSR): 
+![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/CSRRequest.png)
+2. Create your CSR and **save it disk**:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/CSRCreation.png)
+3. Open **apple developer portal**, open your app id and enable push notification:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/AppleDeveloper_EnablePushNotification.png)
+4. In apple developer portal, To create push notification developer certificate, Click Certificate, you will see this page, click Continue here:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/AppleInstructionsOnCreatingCSR.png)
+5. Now upload the CSR created in step 2:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/generating_certificate.png)
+6. Once generated, click on download and save the file. The saved file would be named: "aps_development.cer":![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/click_download.png)
+7. Open the downloaded aps_development.cer file by double clicking. This would add the .cer to keychain. Now Select the **private key** and the **certificate** and right click and select ```Export 2 items```:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/ExportingPrivateKeyAndAPNDevCerTogether.png)
+8. Selecting Export 2 items, will export it as .p12 file:![alt tag](https://github.com/sushmasatish/handy_apn/blob/master/docs/ExportingPrivateKeyDevCerTogether.png)
+9. Now execute the following ```openssl``` command on the ```AppDemoPrivateKeyDevCerTogether.p12```:
 
-http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1
+```sh
+$ openssl pkcs12 -in AppDemoPrivateKeyDevCerTogether.p12 -out push_notification_demo_apn_dev.pem -nodes -clcerts
+```
+
 
 ## Development
 
