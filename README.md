@@ -18,20 +18,49 @@ Or install it yourself as:
 
 ## Usage
 
-	$ require 'handy_apn'
-	$ rake --tasks
-	$ rake apn:send_push_notification[full_file_path_to_dot_pem,pass_phrase_for_certificate,device_token,is_dev_or_prod]
+### Command Line
+  The handy_apn gem provides a command-line option (```handy_apn```) to test your certificates by sending message to the device.
+  
+  To lists the commands available:
+  ```sh
+  $ handy_apn -h
+  ```
+  
+  To send message to a device:
+  ```sh
+  $ handy_apn push "f2ecca82 b48b7a38 5b838ece 3079ee6f 29f27163 d8407c1f 01f7298c 0a74bd7c" -m "Hello world" -e production -c aps_production.pem -p
+  ```
+  sends the message "Hello world" to the device using the production apple push notification service using the prodution pem file.
 
-Note:
+### Rakefile
+  The handy_apn gem also provides a rake task to test your certificates by sending a message to the device.
+  
+  Create a Rakefile:
+  ```sh
+  $ vi Rakefile
+  ```
+  Add the following code to the Rakefile.
+  ```ruby
+  require "handy_apn/Rakefile"
+  ```
+  
+  Now lists the rake tasks
+  ```sh
+  $ rake --tasks
+  $ rake apn:send_message[apn_pem_file_path,apn_pass_phrase,device_token,should_send_message_to_apn_prod,message_text]
+  ```
+Params:
 
-* full_file_path_to_dot_cer - absolute location of the file along with file name and should be for .pem
+* apn_pem_file_path - absolute location of the file along with file name
+* apn_pass_phrase - passphrase for your pem file
+* device_token - should be formed of 64 alphanumeric characters and separated by space after 8 characters as shown in example below.
+* should_send_message_to_apn_prod - true would send to apple's production push notification service.
+* message_text - Message you want to send
 
-* device_token - should be separated by space after 8 characters as shown in example below.
-
-* is_dev_or_prod - false - connects to APN-Dev service - gateway.sandbox.push.apple.com
-
-
-	$ rake apn:send_push_notification["/Users/blah/apn_certificates/aps_development.pem","blah","eb8328c8 3f42a4dd e7eb8e96 5535b0c7 653032eb 070e54d9 c55133a6 da32c94f",false]
+Example to test development certificate:
+```sh
+$ rake apn:send_message["/Users/blah/apn_certificates/aps_development.pem","blah","eb8328c8 3f42a4dd e7eb8e96 5535b0c7 653032eb 070e54d9 c55133a6 da32c94f",false,"Hello world"]
+```
 
 ## How to create apple push notification certificate
 
